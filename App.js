@@ -11,15 +11,16 @@ import { Provider, connect } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import axios from 'axios';
 import axiosMiddleware from 'redux-axios-middleware';
+import store from './src/store/store';
 
-import reducer from './src/reducers/reducer';
+import rootReducer from './src/reducers/combineReducers';
 
-const client = axios.create({
-  baseURL: 'https://api.github.com',
-  responseType: 'json'
-})
+// const client = axios.create({
+//   baseURL: 'https://api.github.com',
+//   responseType: 'json'
+// })
 
-const store = createStore(reducer, applyMiddleware(axiosMiddleware(client)));
+// const store = createStore(rootReducer, applyMiddleware(axiosMiddleware(client)));
 
   const App = () => {
   return (

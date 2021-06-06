@@ -1,26 +1,55 @@
 import React, { useEffect, useState } from 'react';
 import {View, Text, Button, SafeAreaView, FlatList, TouchableOpacity} from 'react-native';
 import FirstCard from './FirstCard';
-import {UserData} from '../constants/UserData';
+// import {UserData} from '../constants/UserData';
 import RepoScreen from './RepoScreen';
+import {connect} from "react-redux";
+import axios from 'axios';
 
-const HomeScreen = ({navigation}) => {
-    const [repoData, setRepoData] = useState([]);
+const HomeScreen = (props) => {
 
-   function handleClick(user){   
-        console.warn(user)   
-        setRepoData(user.repos_url);
-        handleNavigation();        
+    const {isLoading, data, error} = props; 
+
+    const [login, setLogin] = useState("hi");
+    const [userData, setUserData] = useState([]);
+
+    const url = "https://api.github.com/users";
+//fetching data from api
+    const getUserData = () => {
+        axios.get(url)
+        .then((response) => {
+            setUserData(response.data);
+        })
+        .catch(error => console.error(`Error: ${error}`));
     }
-function handleNavigation(){
-    console.warn(repoData);
-    navigation.navigate('Repo', {repoData});
-}
+    
+    
+// handling click on a user
+   function handleClick(user){
+        setLogin(user.login);   
+   }
+// navigating to repo page
+   useEffect(()=>{
+    handleNavigation();
+   },[login])
+
+// function for navigation
+    function handleNavigation(){
+    props.navigation.navigate('Repo', {login:{login}});
+    }
+
+//callig function to fetch api
+    useEffect(() => {
+    getUserData();
+    return (() => console.log('cleaned up'));
+    },[url])
+
+
 
     return (
         <SafeAreaView>
             <FlatList
-            data={UserData}
+            data={userData}
             renderItem = {({item}) => (
                 <TouchableOpacity onPress={() => handleClick(item)}>
                     <FirstCard
@@ -39,4 +68,19 @@ function handleNavigation(){
     )
 }
 
-export default HomeScreen;
+const mapStateToProps = (state) => {
+    console.log({state});
+    return{
+    isLoading: state.isLoading,
+    data: state.data,
+    error: state.error
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        // request: () => dispatch(getUsersListRequest())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

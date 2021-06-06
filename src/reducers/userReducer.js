@@ -1,3 +1,9 @@
+import{
+    GET_USERS_LIST_REQUEST,
+    GET_USERS_LIST_SUCCESS,
+    GET_USERS_LIST_FAILURE
+} from '../actions/userAction';
+
 const initialState = {
     isLoading: false,
     loaded: false,

@@ -7,7 +7,7 @@ function SecondCard({repoName, languages}) {
         <View style={styles.card}>
             <View style={styles.section}>
                 <View style={styles.section1}>
-                    <Text>{repoName}</Text>
+                    <Text>repoName = {repoName}</Text>
                 </View>
                 <View style={styles.section2}>
                     <Text>{languages}</Text>
