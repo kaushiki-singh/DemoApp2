@@ -14,7 +14,8 @@ interface IFetchLanguageListActionData {
 }
 
 interface IFetchLanguageSuccessActionData {
-    languageData: LanguageData;
+    languageData: Array<string>;
+    repoName: string;
 }
 
 export const getLanguageListRequest = createAction(LanguageActionTypes.GET_LANGUAGE_LIST_REQUEST)<IFetchLanguageListActionData>();

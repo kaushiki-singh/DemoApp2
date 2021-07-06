@@ -22,10 +22,12 @@ function RepoScreen({ route }) {
             <FlatList
                 data={MyRepoData}
                 keyExtractor={item => item.id.toString()}
+                maxR
                 renderItem={({ item }) => (
                     <SecondCard
                         repoName={item.name}
-                        loginName={login.login}
+                        loginName={item.owner.login}
+                        repoId={item.node_id}
                     >
                     </SecondCard>
                 )}

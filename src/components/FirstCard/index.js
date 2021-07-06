@@ -5,7 +5,6 @@ import Styles from './styles';
 
 function FirstCard({ name, image, followers, following, publicRepo, type }) {
     let imageURL = { uri: image };
-    console.log("in first card");
     return (
         <View style={Styles.card}>
             <View style={Styles.cardContent}>

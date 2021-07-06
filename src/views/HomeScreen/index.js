@@ -22,6 +22,8 @@ const HomeScreen = (props) => {
         <SafeAreaView>
             <FlatList
                 data={MyuserData}
+                maxToRenderPerBatch={10}
+                updateCellsBatchingPeriod={50}
                 renderItem={({ item }) => (
                     <TouchableOpacity onPress={() => handleNavigation(item.login)}>
                         <FirstCard

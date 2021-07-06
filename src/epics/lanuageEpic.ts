@@ -16,12 +16,10 @@ const getLanguageEpic = (action$: ActionsObservable<getLanguageListAction>) =>
     action$.pipe(
         filter(isOfType(LanguageActionTypes.GET_LANGUAGE_LIST_REQUEST)),
         mergeMap((action: getLanguageListAction) => {
-            console.log("login name", action, "repo name", action);
-            return from(axios.get(`https://api.github.com/repos/${action.payload.loginName}/${action.payload.repoName}/languages`)).pipe(
+            return from(axios.get(`https://api.github.com/repos/${action.payload[0]}/${action.payload[1]}/languages`)).pipe(
                 map((response) => {
                     const languageList = response.data;
-                    console.log("in language epic", languageList);
-                    return getLanguageListSuccess({ languageData: languageList });
+                    return getLanguageListSuccess({ languageData: Object.keys(languageList), repoName: action.payload[1] });
                 }),
                 catchError((error: IErrorActionData) => {
                     return of(getLanguageListFailure({

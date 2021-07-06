@@ -1,11 +1,10 @@
 import { Reducer } from 'redux';
 import { IErrorActionData } from '../utils/error';
-import { LanguageData } from '../utils/languageData';
 import { LanguageListGetActions, LanguageActionTypes } from '../actions/languageAction';
 
 interface ILanguageState {
     isLoading: boolean;
-    data: LanguageData;
+    data: { [key: string]: Array<string> };
     error: IErrorActionData;
 }
 
@@ -28,7 +27,10 @@ const Languagereducer: Reducer<ILanguageState, LanguageListGetActions> = (state 
             return {
                 ...state,
                 isLoading: false,
-                data: action.payload.languageData,
+                data: {
+                    ...state.data,
+                    [action.payload.repoName]: action.payload.languageData
+                },
                 error: null,
             }
         case LanguageActionTypes.GET_LANGUAGE_LIST_FAILURE:

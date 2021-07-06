@@ -20,7 +20,6 @@ const getUsersEpic = (action$: ActionsObservable<getUsersListAction>) =>
             return from(axios.get('https://api.github.com/users')).pipe(
                 map((response) => {
                     const userList = response.data;
-                    console.log(userList, "user data");
                     return getUsersListSuccess({ userData: userList });
                 }),
                 catchError((error: IErrorActionData) => {
