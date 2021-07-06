@@ -1,6 +1,5 @@
 import { createAction, ActionType } from 'typesafe-actions';
 import { IErrorActionData } from '../utils/error';
-import { LanguageData } from '../utils/languageData';
 
 export enum LanguageActionTypes {
     GET_LANGUAGE_LIST_REQUEST = 'GET_LANGUAGE_LIST_REQUEST',

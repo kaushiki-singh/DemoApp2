@@ -12,7 +12,6 @@ function SecondCard({ repoName, loginName, nodeId }) {
         return state.language.data;
     });
     const currentRepData = MyLanguageData?.[repoName];
-    console.log("currentRepData is ", currentRepData);
 
     useEffect(() => {
         dispatch(getLanguageListRequest([loginName, repoName]));
